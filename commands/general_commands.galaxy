@@ -2237,7 +2237,7 @@ void LibapxDefineSetVar(string commandName) {
 
 // LibapxCommandMoveChat
 //  ===================
-// Moves the chat to the left or center
+// Moves the chat wherever specified, for the local player.
 void LibapxCommandMoveChat(int user, unitgroup u, string argv, int spawningCount, string bracketText) {
 	string value = TextToString(TextCase(StringToText(StringWord(argv, 2)), false));
 	int yPos;
@@ -2259,8 +2259,16 @@ void LibapxCommandMoveChat(int user, unitgroup u, string argv, int spawningCount
 	}
 	else if(StringToInt(StringWord(argv, 3))){
 		yPos = StringToInt(StringWord(argv, 3));
+		// Apparently you can't set Dialog positions for one player, so I can't move patchnotes out the way.
+		// if(ypos >= 1200){
+		// 	DialogControlSetPosition(LibapxUiPatchnotes, PlayerGroupSingle(user), c_anchorBottom, 0, 400);
+		// 	DialogControlSetPosition(LibapxUiPatchnotesExit, PlayerGroupSingle(user), c_anchorBottom, 0, 400);
+		// }else{
+		// 	DialogControlSetPosition(LibapxUiPatchnotes, PlayerGroupSingle(user), c_anchorTop, 0, 110);
+		// 	DialogControlSetPosition(LibapxUiPatchnotesExit, PlayerGroupSingle(user), c_anchorTop, 0, 110);
+		// }
 		LibapxPrintOutput(user, "Chat moved "+value+" pixels on anchor-center's X, and "+IntToString(yPos)+" pixels on anchor-center's Y.");
-		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorCenter, StringToInt(value), yPos);
+		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorCenter, StringToInt(value), -yPos);
 	}
 	else if(StringToInt(value)){
 		LibapxPrintOutput(user, "Chat moved "+value+" pixels to the right on anchor-center.");
@@ -2275,5 +2283,5 @@ void LibapxDefineMoveChat(string commandName) {
 	LibapxCommandsGuideEntrySet(
 		gv_CommandsGuideEntryGeneral, 
 		commandName, 
-		"Moves the chat to the left or back to the middle (only lunatics would move it to the right tho) <br> Examples: <br> _movechat left <br> _movechat center");
+		"Moves the chat either by stating left, right, center, or by providing X or X and Y Values <br> Examples: <br> _movechat left <br> _movechat 455 <br> _movechat 455 100");
 }

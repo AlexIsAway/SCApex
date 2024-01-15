@@ -178,7 +178,7 @@ void LibapxCommandSet(int user, unitgroup u, string argv, int spawningCount, str
     unitType = UnitTypeFromString(StringWord(argv,2));
     eventString = LibapxBracketTextGrab(bracketText, 1);
     eventStringActual = eventString; //Undecided feature to add -nodelay to @attach cmds in caches. 
-    LibapxPrintText(PlayerGroupSingle(user), StringToText("eventStringActual: " + eventStringActual));
+   // LibapxPrintText(PlayerGroupSingle(user), StringToText("eventStringActual: " + eventStringActual));
 
     //Enforce admin setting
 	// if(LibapxAdminSettingIsPlayerEnforceable(user)) {
@@ -298,7 +298,7 @@ void LibapxCommandEvent(int user, unitgroup u, string argv, int spawningCount, s
     bool isValid = false;
     int i = 1;
     eventString = LibapxBracketTextGrab(bracketText, 1);
-    LibapxPrintText(PlayerGroupSingle(user), StringToText("eventString: " + eventString + "\nfrom: " + bracketText));
+    //LibapxPrintText(PlayerGroupSingle(user), StringToText("eventString: " + eventString + "\nfrom: " + bracketText));
     // enforces admin setting
 	// if(LibapxAdminSettingIsPlayerEnforceable(user)) {
 	// 	if(!gv_LibapxSettings.allowEvent) {
