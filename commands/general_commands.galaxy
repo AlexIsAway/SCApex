@@ -1895,77 +1895,77 @@ void LibapxDefineDoodads(string commandName) {
 //
 // TODO: need to abstract event creation to different types of events.
 //      -> currently only support a hardcoded unit enter region event
-void LibapxCommandEvent(int user, unitgroup u, string argv, int spawningCount, string bracketText) {
-	string cmds = LibapxStringTrim(gv_LibapxPlayer[user].chatMsg);
-	string type = StringWord(argv, 2);
-	int eventId;
-	string rgnName;
-	region rgn;
-	trigger trig;
-	int runCount;
-	int cmdsIndexStart;
+// void LibapxCommandEvent(int user, unitgroup u, string argv, int spawningCount, string bracketText) {
+// 	string cmds = LibapxStringTrim(gv_LibapxPlayer[user].chatMsg);
+// 	string type = StringWord(argv, 2);
+// 	int eventId;
+// 	string rgnName;
+// 	region rgn;
+// 	trigger trig;
+// 	int runCount;
+// 	int cmdsIndexStart;
 
-	// print help info
-	if( type == "" ) {
-		LibapxPrintOutput(user, "\">event list\" to show events, \">event remove [ID]\" to remove an event based on its ID, \">event #[region] [times-to-run] cmd1; cmd2; ...\" to create UnitEntersRegion event.");
-		return;
-	}
-	// print event types
-	else if( type == "list" ) {
-		LibapxEventsList(user);
-		return;
-	}
-	// remove event
-	else if( type == "remove" ) {
-		eventId = StringToInt(StringWord(argv, 3));
-		if( eventId == 0 ) {
-			LibapxPrintError(user, "Invalid Event ID");
-		} else {
-			LibapxEventTriggerRemove(user, eventId);
-		}
-		return;
-	}
+// 	// print help info
+// 	if( type == "" ) {
+// 		LibapxPrintOutput(user, "\">event list\" to show events, \">event remove [ID]\" to remove an event based on its ID, \">event #[region] [times-to-run] cmd1; cmd2; ...\" to create UnitEntersRegion event.");
+// 		return;
+// 	}
+// 	// print event types
+// 	else if( type == "list" ) {
+// 		LibapxEventsList(user);
+// 		return;
+// 	}
+// 	// remove event
+// 	else if( type == "remove" ) {
+// 		eventId = StringToInt(StringWord(argv, 3));
+// 		if( eventId == 0 ) {
+// 			LibapxPrintError(user, "Invalid Event ID");
+// 		} else {
+// 			LibapxEventTriggerRemove(user, eventId);
+// 		}
+// 		return;
+// 	}
 
-	// assume this is a UnitEntersRegion event.
-	// -> check if 2nd param is a region
-	rgnName = StringWord(argv, 2);
-	if( StringContains(rgnName, "#", c_stringBegin, c_stringNoCase) ) {
-		rgnName = LibapxRegionGetName(StringSub(rgnName, 2, StringLength(rgnName)), user);
-		if( DataTableValueExists(true, rgnName) ) {
-			rgn = DataTableGetRegion(true, rgnName);
-		}
-		else {
-			LibapxPrintError(user, "Invalid region \"" + rgnName + "\".");
-			return;
-		}
-	} else {
-		LibapxPrintError(user, "Must specify a region as 2nd parameter in format #[name]");
-		return;
-	}
+// 	// assume this is a UnitEntersRegion event.
+// 	// -> check if 2nd param is a region
+// 	rgnName = StringWord(argv, 2);
+// 	if( StringContains(rgnName, "#", c_stringBegin, c_stringNoCase) ) {
+// 		rgnName = LibapxRegionGetName(StringSub(rgnName, 2, StringLength(rgnName)), user);
+// 		if( DataTableValueExists(true, rgnName) ) {
+// 			rgn = DataTableGetRegion(true, rgnName);
+// 		}
+// 		else {
+// 			LibapxPrintError(user, "Invalid region \"" + rgnName + "\".");
+// 			return;
+// 		}
+// 	} else {
+// 		LibapxPrintError(user, "Must specify a region as 2nd parameter in format #[name]");
+// 		return;
+// 	}
 
-	// get number of times to run the event
-	runCount = StringToInt(StringWord(argv, 3));
+// 	// get number of times to run the event
+// 	runCount = StringToInt(StringWord(argv, 3));
 
-	// get commands
-	// -> harcoded remove 1, 2, and 3 words to get cmds
-	cmdsIndexStart = StringFind(cmds, StringWord(cmds, 3), c_stringNoCase);
-	cmds = StringReplace(cmds, "", 0, cmdsIndexStart + StringLength(StringWord(cmds, 3)));
+// 	// get commands
+// 	// -> harcoded remove 1, 2, and 3 words to get cmds
+// 	cmdsIndexStart = StringFind(cmds, StringWord(cmds, 3), c_stringNoCase);
+// 	cmds = StringReplace(cmds, "", 0, cmdsIndexStart + StringLength(StringWord(cmds, 3)));
 
-	// create trigger and add trigger and its cmds binding to data table
-	trig = LibapxEventTriggerCreate("LibapxEventUnit", "UnitEntersRegion", runCount, user, cmds);
+// 	// create trigger and add trigger and its cmds binding to data table
+// 	trig = LibapxEventTriggerCreate("LibapxEventUnit", "UnitEntersRegion", runCount, user, cmds);
 
-	// add trigger event (hardcoded unit enter region event as proof of concept)
-	TriggerAddEventUnitRegion(trig, null, rgn, true);
+// 	// add trigger event (hardcoded unit enter region event as proof of concept)
+// 	TriggerAddEventUnitRegion(trig, null, rgn, true);
 
-	// stop player from further chat parsing
-	gv_LibapxPlayer[user].doneParsing = true;
-}
-void LibapxDefineEvent(string commandName) {
-	LibapxCommandsGuideEntrySet(
-		gv_CommandsGuideEntryGeneral, 
-		commandName, 
-		" A debug command. <br>  ");
-}
+// 	// stop player from further chat parsing
+// 	gv_LibapxPlayer[user].doneParsing = true;
+// }
+// void LibapxDefineEvent(string commandName) {
+// 	LibapxCommandsGuideEntrySet(
+// 		gv_CommandsGuideEntryGeneral, 
+// 		commandName, 
+// 		" A debug command. <br>  ");
+// }
 
 // LibapxCommandSound
 //  ===================
