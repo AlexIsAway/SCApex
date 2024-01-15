@@ -386,7 +386,7 @@ void LibapxCommandKeypress(int user, unitgroup u, string argv, int spawningCount
 	int i = 1;
 	bool isKey = false;
 	keypressString = LibapxBracketTextGrab(bracketText, 1);
-    LibapxPrintText(PlayerGroupSingle(user), StringToText("keypressString: " + keypressString + "\nfrom: " + bracketText));
+    //LibapxPrintText(PlayerGroupSingle(user), StringToText("keypressString: " + keypressString + "\nfrom: " + bracketText));
 
 
 	if (StringCase(StringWord(argv, 2), c_stringNoCase) == "help") {
