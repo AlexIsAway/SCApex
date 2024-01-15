@@ -58,7 +58,8 @@ int gv_LibapxUiSubtitle = DialogControlHookupStandard(c_triggerControlTypeLabel,
 int gv_LibapxUiHeroname =  DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/ConsoleUIContainer/InfoPanel/InfoPaneHero/ApexNameLabel");
 int gv_LibapxUiTransportname =  DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/ConsoleUIContainer/InfoPanel/InfoPaneCargo/ApexNameLabel");
 
-
+//Debug Chat Dialog
+int gv_LibapxUIDebugChat = DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/DebugDisplay");
 
 //Image frame(tmp)
 int gv_LibapxUiWireframeIMG = DialogControlHookupStandard(c_triggerControlTypeImage, "UIContainer/ConsoleUIContainer/ApexUnitImageAndStatsPanel/ApexWireframe");

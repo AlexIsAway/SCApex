@@ -2234,3 +2234,46 @@ void LibapxDefineSetVar(string commandName) {
 		commandName, 
 		"This command sets a variable to a number, reference variable functions for more. <br> Helpmessages name value <br> Examples: <br> _varset myVariable ${2+6}");
 }
+
+// LibapxCommandMoveChat
+//  ===================
+// Moves the chat to the left or center
+void LibapxCommandMoveChat(int user, unitgroup u, string argv, int spawningCount, string bracketText) {
+	string value = TextToString(TextCase(StringToText(StringWord(argv, 2)), false));
+	int yPos;
+	if(value == "left"){
+		LibapxPrintOutput(user, "Chat moved to the left");
+		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorLeft, 10, -200);
+	}
+	else if(value == "center"){
+		LibapxPrintOutput(user, "Chat moved to the center");
+		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorBottom, 0, 400);
+	}
+	else if(value == "reset"){
+		LibapxPrintOutput(user, "Chat position reset");
+		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorBottom, 0, 400);
+	}
+	else if(value == "right"){
+		LibapxPrintOutput(user, "Chat moved to the right");
+		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorRight, 5, -120);
+	}
+	else if(StringToInt(StringWord(argv, 3))){
+		yPos = StringToInt(StringWord(argv, 3));
+		LibapxPrintOutput(user, "Chat moved "+value+" pixels on anchor-center's X, and "+IntToString(yPos)+" pixels on anchor-center's Y.");
+		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorCenter, StringToInt(value), yPos);
+	}
+	else if(StringToInt(value)){
+		LibapxPrintOutput(user, "Chat moved "+value+" pixels to the right on anchor-center.");
+		DialogControlSetPosition(gv_LibapxUIDebugChat, PlayerGroupSingle(user), c_anchorCenter, StringToInt(value), -160);
+	}
+	else{
+		LibapxPrintError(user, "Invalid value, must be left, right, reset or center, an X, or an X and a Y position.");
+	}
+	return;
+}
+void LibapxDefineMoveChat(string commandName) {
+	LibapxCommandsGuideEntrySet(
+		gv_CommandsGuideEntryGeneral, 
+		commandName, 
+		"Moves the chat to the left or back to the middle (only lunatics would move it to the right tho) <br> Examples: <br> _movechat left <br> _movechat center");
+}

@@ -202,9 +202,9 @@ void LibapxDefineUnitswap(string commandName) {
 
 
 
-// LibapxCommandPosition
+// LibapxCommandUnitmimic
 // =====================
-// sets the position of a unit
+// Creates a unit with the same type as the one selected.
 void LibapxCommandUnitmimic (int user, unitgroup u, string argv, int spawningCount, string bracketText) {
 	string targetUnit;
 	fixed x;

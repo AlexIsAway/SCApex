@@ -52,6 +52,7 @@ void LibapxCommandsInitialize() {
 	LibapxChatCommandCreate("_print", libpaxCommandPrint, LibapxDefinePrint);
 	LibapxChatCommandCreate("_dataedit", LibapxCommandDataedit, LibapxDefineDataedit);
 	LibapxChatCommandCreate("_varset", LibapxCommandSetVar, LibapxDefineSetVar);
+	LibapxChatCommandCreate("_movechat", LibapxCommandMoveChat, LibapxDefineMoveChat);
 
 	//API commands
 	LibapxChatCommandCreate("_api", LibapxCommandApi, LibapxDefineApi);
