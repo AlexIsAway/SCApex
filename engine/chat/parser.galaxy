@@ -100,6 +100,7 @@ void LibapxChatParse(string msg, int player, unitgroup target, int spawningCount
 	int i;
 	string currentTemp;
 	bool matchedBracketCmd = false;
+	bool commandWasDisabled = false;
 	
 	LibapxCommandType func; // command ref test
 	LibapxChatParseIncrement(player);
@@ -239,6 +240,20 @@ void LibapxChatParse(string msg, int player, unitgroup target, int spawningCount
 		// go no further with parsing if current string is empty
 		// (this occurs if player types a string of ";;;;;")
 		if( current == "" ) {
+			continue;
+		}
+		// check if command was disabled via !secure
+		for(i=0; i < 255; i+=1) {
+			if(StringFind(StringWord(current,1), gv_LibapxPlayer[player].disabledCommands[i], false) != -1) {
+				LibapxPrintError(player, "The command <c val=\"FF0F0F\">"+gv_LibapxPlayer[player].disabledCommands[i]+"</c> was secured by the host.");
+				commandWasDisabled = true;
+				break;
+			}else if(gv_LibapxPlayer[player].disabledCommands[i] != ""){
+				//LibapxPrintOutput(player, "\"" + gv_LibapxPlayer[player].disabledCommands[i] + "\"");
+			}
+		}
+		if(commandWasDisabled == true){
+			commandWasDisabled = false;
 			continue;
 		}
 

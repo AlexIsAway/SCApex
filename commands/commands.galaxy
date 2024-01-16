@@ -77,6 +77,8 @@ void LibapxCommandsInitialize() {
 	LibapxChatCommandCreate("!destroy", LibapxCommandDestroy, LibapxDefineDestroy);
 	LibapxChatCommandCreate("!fog", LibapxCommandFog, LibapxDefineFog);
 	LibapxChatCommandCreate("!skybox", LibapxCommandSkybox, LibapxDefineSkybox);
+	LibapxChatCommandCreate("!secure", LibapxCommandSecure, LibapxDefineSecure);
+	LibapxChatCommandCreate("!unsecure", LibapxCommandUnsecure, LibapxDefineUnsecure);
 
 	// spawn command - done in cmd guide
 	LibapxChatCommandCreate("@spawn+", LibapxCommandSpawnPlus, LibapxDefineRegionSpawnPlus);

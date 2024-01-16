@@ -297,6 +297,10 @@ struct gv_LibapxPlayerProperties {
 
 	//Help messages
 	bool helpMessages;
+
+	//Disabled commands, per player
+	// Set to 255 as that's the current max commands amount (that I should probably reset to 250 because I increased it during testing)
+	string[255] disabledCommands;
 };
 
 // gv_LibapxPlayerParserProperties
@@ -366,6 +370,19 @@ void gv_LibapxPlayerInitialize(int player) {
 	CameraPan( player, RegionGetCenter(RegionEntireMap()), 0.0, 10.0, 10.0, false );
 }
 
+// gv_LibapxPlayerHasCommandDisabled
+// ================================
+// returns true if player has command disabled
+bool gv_LibapxPlayerHasCommandDisabled(int player, string command) {
+	int i = 0;
+	while(i < 255) {
+		if(gv_LibapxPlayer[player].disabledCommands[i] == command) {
+			return true;
+		}
+		i += 1;
+	}
+	return false;
+}
 
 
 // gv_LibapxPlayerNameColored

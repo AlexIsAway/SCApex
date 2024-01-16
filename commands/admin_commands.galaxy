@@ -41,6 +41,90 @@ void LibapxDefineDestroy(string commandName) {
 	);
 }
 
+// LibapxCommandSecure
+// ====================
+// prevents player from using (a) command(s)
+void LibapxCommandSecure(int user, unitgroup u, string argv, int spawningCount, string bracketText) {
+	string command = StringWord(argv, 2);
+	int PlayerNumber = 0;
+	int i = 0;
+	if( gv_LibapxPlayer[user].permissionLevel < LibapxPERMISSIONSLEVELADMIN ) {
+		LibapxPrintError(user, "Only admins/hosts can use !secure");
+		return;
+	}
+
+	if( LibapxCommandsGuideEntryGet(command) == false ) {
+		LibapxPrintError(user, "Invalid command. (Tip: Try with the prefix) </n> kick -> !kick");
+		return;
+	}else if( StringFind(command,"secure",false) != -1 ) {
+		LibapxPrintError(user, "You cannot secure the secure command...");
+		return;
+	}
+	
+	for(PlayerNumber = 0; PlayerNumber < c_maxPlayers; PlayerNumber+=1) {
+		for(i=0; i < 255; i+=1) {
+			if(gv_LibapxPlayer[PlayerNumber].disabledCommands[i] == command) {
+				LibapxPrintError(user, "Command is already secured.");
+				return;
+			}else if(gv_LibapxPlayer[PlayerNumber].disabledCommands[i] == ""){
+				gv_LibapxPlayer[PlayerNumber].disabledCommands[i] = command;
+				break;
+			}
+		}
+		//LibapxPrintOutput(user, "Command has been secured for "+ TextToString(gv_LibapxPlayerNameColored(PlayerNumber)));
+	}
+	LibapxPrintText(PlayerGroupAll(), StringToText("Command ") + StringToText(command) + StringToText(" has been secured by ") + gv_LibapxPlayerNameColored(user));
+
+	return;
+}
+
+void LibapxDefineSecure(string commandName) {
+	LibapxCommandsGuideEntrySet(
+		gv_CommandsGuideEntryAdmin, 
+		commandName, 
+		"Disables a command completely. This is useful if you want to disable a command temporarily. <br> This is an admin command so you must be a moderator or an admin to use it. <br> !secure [command] <br> Examples: <br> !secure @spawn <br> !secure !kick"
+	);
+}
+
+// LibapxCommandUnsecure
+// ====================
+// prevents player from using (a) command(s)
+void LibapxCommandUnsecure(int user, unitgroup u, string argv, int spawningCount, string bracketText) {
+	string command = StringWord(argv, 2);
+	int PlayerNumber = 0;
+	int i = 0;
+	if( gv_LibapxPlayer[user].permissionLevel < LibapxPERMISSIONSLEVELADMIN ) {
+		LibapxPrintError(user, "Only admins/hosts can use !unsecure");
+		return;
+	}
+
+	if( LibapxCommandsGuideEntryGet(command) == false ) {
+		LibapxPrintError(user, "Invalid command. (Tip: Try with the prefix) </n> kick -> !kick");
+		return;
+	}
+	
+	for(PlayerNumber = 0; PlayerNumber < c_maxPlayers; PlayerNumber+=1) {
+		for(i=0; i < 255; i+=1) {
+			if(gv_LibapxPlayer[PlayerNumber].disabledCommands[i] == command) {
+				gv_LibapxPlayer[PlayerNumber].disabledCommands[i] = "";
+				break;
+			}
+		}
+		//LibapxPrintOutput(user, "Command has been unsecured for "+ TextToString(gv_LibapxPlayerNameColored(PlayerNumber)));
+	}
+	LibapxPrintText(PlayerGroupAll(), StringToText("Command ") + StringToText(command) + StringToText(" has been unsecured by ") + gv_LibapxPlayerNameColored(user));
+
+	return;
+}
+
+void LibapxDefineUnsecure(string commandName) {
+	LibapxCommandsGuideEntrySet(
+		gv_CommandsGuideEntryAdmin, 
+		commandName, 
+		"Reenables a command disabled with !secure <br> !unsecure [command] <br> Examples: <br> !unsecure @spawn <br> !unsecure !kick"
+	);
+}
+
 // LibapxCommandBan
 // ====================
 // bans a player (removes all player's units from map too)

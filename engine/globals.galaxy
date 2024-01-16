@@ -203,7 +203,6 @@ commandsGuideEntry[500] gv_CommandsGuideEntries;
 
 int gv_CommandsGuideEntryCount = 0;
 
-
 void LibapxCommandsGuideEntrySet(int type, string name, string description) {
     if (type == gv_CommandsGuideEntryAdmin) {
         gCommandGuideTypeCount.Admin += 1;
@@ -230,6 +229,16 @@ void LibapxCommandsGuideEntrySet(int type, string name, string description) {
     gv_CommandsGuideEntries[gv_CommandsGuideEntryCount].name = name;
     gv_CommandsGuideEntries[gv_CommandsGuideEntryCount].description = description;
     gv_CommandsGuideEntryCount += 1;
+}
+
+bool LibapxCommandsGuideEntryGet(string name) {
+    int i;
+    for(i = 0; i < gv_CommandsGuideEntryCount; i+=1) {
+        if(gv_CommandsGuideEntries[i].name == name) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void LibapxGuidePresetDescriptions() {
