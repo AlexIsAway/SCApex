@@ -43,7 +43,11 @@ bool LibapxMacroCommandRedirect(string command, int player) {
 		content = StringReplaceWord(gv_LibapxPlayer[player].chatMsg, "macro", "", 1, c_stringNoCase);
 		content = StringReplaceWord(content, "create", "", 1, c_stringNoCase);
 		content = LibapxStringTrim( StringSub(content, StringFind(content, macro, c_stringNoCase) + StringLength(macro) + 1, StringLength(content)) );
-
+		// intercept to check if macro is recursive
+		// if( StringContains(content, macro, c_stringAnywhere, c_stringNoCase) ) {
+		// 	LibapxPrintError(player, "MACRO CANNOT BE RECURSIVE");
+		// 	return false;
+		// }
 		if( content != "" ) {
 			LibapxBankCreate(LibapxBANKSECTIONMACRO, StringWord(macro, 1), content, player);
 			LibapxPrintSuccess(player, "MACRO CREATED: " + macro + " " + StringSub(content, 1, StringFind(content, "=", c_stringNoCase) - 1) + "\n"
