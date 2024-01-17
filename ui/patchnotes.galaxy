@@ -23,7 +23,7 @@ struct patchNotesDesign {
     string version;
     string[200] patches; //Max patches
 };
-static const int patchCount = 10;
+static const int patchCount = 11;
 static patchNotesDesign[17][patchCount] patchNotes;
 
 
@@ -76,7 +76,11 @@ void LibapxUiPatchnotesInitPlayer(int player) {
 
     i = 0;
     patchNotes[player][j].version = "2.4.0";
-    patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: >keypress</c> numpad and f key fixed, also added warning to keys 1 - 9/0";
+    patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: >keypress</c> numpad and f key fixed";
+    i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: _movechat</c> added";
+    i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: !secure</c> added";
+    i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: >event</c> added (thanks ngo)";
+    i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: >set</c> added (thanks ngo)";
 
     i = 0;
     j = j + 1;
@@ -160,7 +164,7 @@ void LibapxUiPatchnotesInitPlayer(int player) {
     i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: @subtitleall</c> replaced @subtitle. ";
     i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: @rename</c> added. ";
     i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: Camera editor on/off</c> added. Full fledged editor-like camera in game. ";
-    i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: >keypresses</c> ALOT more keyes added to keypress. Do >keypress help to look at them all. ";
+    i+=1;patchNotes[player][j].patches[i] = "<c val=\"3498db\">CMD: >keypress</c> ALOT more keyes added to keypress. Do >keypress help to look at them all. ";
     i+=1;patchNotes[player][j].patches[i] = "<c val=\"2ecc71\">UI: Rework </c> All ui has been reworked and revised. New images and textures. ";
     i+=1;patchNotes[player][j].patches[i] = "<c val=\"2ecc71\">UI: Updated Commands Guide</c> ";
     i+=1;patchNotes[player][j].patches[i] = "<c val=\"2ecc71\">UI: Version Number </c> Version displays at the top of the screen. ";
